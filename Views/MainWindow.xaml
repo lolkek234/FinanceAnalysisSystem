@@ -2,82 +2,47 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Система анализа финансовых результатов" Height="600" Width="900"
-        Background="#F5F5F5" WindowStartupLocation="CenterScreen">
+        Background="#F5F5F5">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <!-- Header -->
-        <Border Grid.Row="0" Background="#2C3E50" Padding="20">
-            <StackPanel>
-                <TextBlock Text="Финан��овая аналитика малого предприятия" FontSize="24" Foreground="White" FontWeight="Bold"/>
-                <TextBlock Text="Управление доходами и расходами" FontSize="12" Foreground="#BDC3C7" Margin="0,5,0,0"/>
-            </StackPanel>
-        </Border>
-
-        <!-- Summary Panel -->
-        <Border Grid.Row="1" Background="White" BorderBrush="#ECF0F1" BorderThickness="0,1,0,1" Padding="20">
+        <StackPanel Margin="20">
+            <TextBlock Text="Система анализа финансовых результатов" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
-                <!-- Total Income -->
-                <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                    <TextBlock Text="Общий доход" Foreground="#7F8C8D" FontSize="11"/>
-                    <TextBlock Text="{Binding TotalIncome, StringFormat=C}" FontSize="20" FontWeight="Bold" Foreground="#27AE60"/>
-                </StackPanel>
-
-                <!-- Total Expenses -->
-                <StackPanel Grid.Column="1" Margin="20,0,20,0">
-                    <TextBlock Text="Общие расходы" Foreground="#7F8C8D" FontSize="11"/>
-                    <TextBlock Text="{Binding TotalExpenses, StringFormat=C}" FontSize="20" FontWeight="Bold" Foreground="#E74C3C"/>
-                </StackPanel>
-
-                <!-- Net Profit -->
-                <StackPanel Grid.Column="2" Margin="20,0,0,0">
-                    <TextBlock Text="Чистая прибыль" Foreground="#7F8C8D" FontSize="11"/>
-                    <TextBlock Text="{Binding NetProfit, StringFormat=C}" FontSize="20" FontWeight="Bold" Foreground="#3498DB"/>
-                </StackPanel>
+                
+                <Border Grid.Column="0" Background="#E8F5E9" CornerRadius="5" Padding="10" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="Доход" FontSize="12" Foreground="#666"/>
+                        <TextBlock Text="0" FontSize="20" FontWeight="Bold" Foreground="#4CAF50"/>
+                    </StackPanel>
+                </Border>
+                
+                <Border Grid.Column="1" Background="#FFEBEE" CornerRadius="5" Padding="10" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="Расходы" FontSize="12" Foreground="#666"/>
+                        <TextBlock Text="0" FontSize="20" FontWeight="Bold" Foreground="#F44336"/>
+                    </StackPanel>
+                </Border>
+                
+                <Border Grid.Column="2" Background="#E3F2FD" CornerRadius="5" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Прибыль" FontSize="12" Foreground="#666"/>
+                        <TextBlock Text="0" FontSize="20" FontWeight="Bold" Foreground="#2196F3"/>
+                    </StackPanel>
+                </Border>
             </Grid>
-        </Border>
-
-        <!-- Transactions List -->
-        <DataGrid Grid.Row="2" ItemsSource="{Binding Transactions}" AutoGenerateColumns="False" 
-                  CanUserAddRows="False" Background="White" RowHeight="35" Margin="0,0,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Дата" Binding="{Binding Date, StringFormat=dd.MM.yyyy}" Width="100"/>
-                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" Width="*"/>
-                <DataGridTextColumn Header="Категория" Binding="{Binding Category}" Width="120"/>
-                <DataGridTextColumn Header="Тип" Binding="{Binding Type}" Width="80"/>
-                <DataGridTextColumn Header="Сумма" Binding="{Binding Amount, StringFormat=C}" Width="100"/>
-                <DataGridTemplateColumn Header="" Width="60">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Удалить" Command="{Binding DataContext.DeleteTransactionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
-                                    CommandParameter="{Binding}" Background="#E74C3C" Foreground="White" Padding="5,2"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-
-        <!-- Footer Buttons -->
-        <Border Grid.Row="3" Background="#ECF0F1" Padding="20">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="40">
-                <Button Content="➕ Добавить операцию" Command="{Binding AddTransactionCommand}" 
-                        Background="#27AE60" Foreground="White" Padding="15,0" FontSize="12" Margin="0,0,10,0" FontWeight="Bold"/>
-                <Button Content="📊 Просмотреть отчет" Command="{Binding ViewReportCommand}" 
-                        Background="#3498DB" Foreground="White" Padding="15,0" FontSize="12" Margin="0,0,10,0" FontWeight="Bold"/>
-                <Button Content="💾 Сохранить" Command="{Binding SaveCommand}" 
-                        Background="#95A5A6" Foreground="White" Padding="15,0" FontSize="12" FontWeight="Bold"/>
+            
+            <DataGrid Margin="0,20,0,20" Height="300" AutoGenerateColumns="True"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="+ Добавить операцию" Padding="15,10" Margin="0,0,10,0" Background="#4CAF50" Foreground="White"/>
+                <Button Content="📊 Просмотреть отчет" Padding="15,10" Margin="0,0,10,0" Background="#2196F3" Foreground="White"/>
+                <Button Content="💾 Сохранить" Padding="15,10" Background="#FF9800" Foreground="White"/>
             </StackPanel>
-        </Border>
+        </StackPanel>
     </Grid>
 </Window>

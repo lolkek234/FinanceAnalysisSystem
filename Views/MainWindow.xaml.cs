@@ -1,5 +1,4 @@
 using System.Windows;
-using FinanceAnalysisSystem.ViewModels;
 
 namespace FinanceAnalysisSystem.Views
 {
@@ -8,7 +7,6 @@ namespace FinanceAnalysisSystem.Views
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
         }
     }
 }
